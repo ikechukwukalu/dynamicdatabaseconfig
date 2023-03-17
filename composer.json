@@ -1,0 +1,19 @@
+{
+    "name": "ikechukwukalu/dynamicdatabaseconfig",
+    "description": "This is a laravel package that helps you set database configurations dynamically.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ikechukwukalu\\Dynamicdatabaseconfig\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ikechukwu Kalu",
+            "email": "ea.ikechukwukkalu@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
