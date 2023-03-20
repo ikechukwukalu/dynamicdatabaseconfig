@@ -1,11 +1,11 @@
 # DYNAMIC MAIL CONFIG
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/ikechukwukalu/dynamicmailconfig?style=flat-square)](https://packagist.org/packages/ikechukwukalu/dynamicmailconfig)
-[![Quality Score](https://img.shields.io/scrutinizer/quality/g/ikechukwukalu/dynamicmailconfig/main?style=flat-square)](https://scrutinizer-ci.com/g/ikechukwukalu/dynamicmailconfig/)
-[![Code Quality](https://img.shields.io/codefactor/grade/github/ikechukwukalu/dynamicmailconfig?style=flat-square)](https://www.codefactor.io/repository/github/ikechukwukalu/dynamicmailconfig)
-[![Github Workflow Status](https://img.shields.io/github/actions/workflow/status/ikechukwukalu/dynamicmailconfig/dynamicmailconfig.yml?branch=main&style=flat-square)](https://github.com/ikechukwukalu/dynamicmailconfig/actions/workflows/dynamicmailconfig.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/ikechukwukalu/dynamicmailconfig?style=flat-square)](https://packagist.org/packages/ikechukwukalu/dynamicmailconfig)
-[![Licence](https://img.shields.io/packagist/l/ikechukwukalu/dynamicmailconfig?style=flat-square)](https://github.com/ikechukwukalu/dynamicmailconfig/blob/main/LICENSE.md)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://packagist.org/packages/ikechukwukalu/dynamicdatabaseconfig)
+[![Quality Score](https://img.shields.io/scrutinizer/quality/g/ikechukwukalu/dynamicdatabaseconfig/main?style=flat-square)](https://scrutinizer-ci.com/g/ikechukwukalu/dynamicdatabaseconfig/)
+[![Code Quality](https://img.shields.io/codefactor/grade/github/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://www.codefactor.io/repository/github/ikechukwukalu/dynamicdatabaseconfig)
+[![Github Workflow Status](https://img.shields.io/github/actions/workflow/status/ikechukwukalu/dynamicdatabaseconfig/dynamicdatabaseconfig.yml?branch=main&style=flat-square)](https://github.com/ikechukwukalu/dynamicdatabaseconfig/actions/workflows/dynamicdatabaseconfig.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://packagist.org/packages/ikechukwukalu/dynamicdatabaseconfig)
+[![Licence](https://img.shields.io/packagist/l/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://github.com/ikechukwukalu/dynamicdatabaseconfig/blob/main/LICENSE.md)
 
 A laravel package that enables each user to send emails through your app using their own unique email configuration.
 
@@ -17,10 +17,10 @@ A laravel package that enables each user to send emails through your app using t
 ## STEPS TO INSTALL
 
 ``` shell
-composer require ikechukwukalu/dynamicmailconfig
+composer require ikechukwukalu/dynamicdatabaseconfig
 ```
 
-- `php artisan vendor:publish --tag=dmc-migrations`
+- `php artisan vendor:publish --tag=ddc-migrations`
 - `php artisan migrate`
 
 ### Hash Database Fields
@@ -35,17 +35,17 @@ MAIL_FIELDS_HASH=true
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(['dynamic.mail.config'])->group(function () {
+Route::middleware(['dynamic.database.config'])->group(function () {
     Route::post('/', [\namespace\SomethingController::class, 'functionName']);
 });
 
-Route::post('/', [\namespace\SomethingController::class, 'functionName'])->middleware('dynamic.mail.config');
+Route::post('/', [\namespace\SomethingController::class, 'functionName'])->middleware('dynamic.database.config');
 ```
 
 ### Model
 
 ```php
-use Ikechukwukalu\Dynamicmailconfig\Models\UserEmailConfiguration;
+use Ikechukwukalu\Dynamicdatabaseconfig\Models\DatabaseConfiguration;
 
 protected $hidden = [
     'name',
@@ -65,8 +65,8 @@ The default mail configuration will be used if a user does not have a custom mai
 
 ## PUBLISH CONFIG
 
-- `php artisan vendor:publish --tag=dmc-config`
+- `php artisan vendor:publish --tag=ddc-config`
 
 ## LICENSE
 
-The DMC package is an open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The DDC package is an open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

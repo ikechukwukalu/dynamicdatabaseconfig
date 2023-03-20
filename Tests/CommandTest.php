@@ -1,6 +1,6 @@
 <?php
 
-namespace Ikechukwukalu\Dynamicmailconfig\Tests;
+namespace Ikechukwukalu\Dynamicdatabaseconfig\Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -10,8 +10,8 @@ class CommandTest extends TestCase
 
     public function test_fires_dynamic_mail_config_commands(): void
     {
-        $this->artisan('vendor:publish --tag=dmc-config')->assertSuccessful();
+        $this->artisan('vendor:publish --tag=ddc-config')->assertSuccessful();
 
-        $this->artisan('vendor:publish --tag=dmc-migrations')->assertSuccessful();
+        $this->artisan('vendor:publish --tag=ddc-migrations')->assertSuccessful();
     }
 }

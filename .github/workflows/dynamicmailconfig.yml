@@ -1,4 +1,4 @@
-name: DynamicMailConfig Unit Tests
+name: DynamicDatabaseConfig Unit Tests
 
 on:
   push:

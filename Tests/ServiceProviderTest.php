@@ -1,9 +1,9 @@
 <?php
 
-namespace Ikechukwukalu\Dynamicmailconfig\Tests;
+namespace Ikechukwukalu\Dynamicdatabaseconfig\Tests;
 
-use Ikechukwukalu\Dynamicmailconfig\DynamicMailConfigServiceProvider;
-use Ikechukwukalu\Dynamicmailconfig\Middleware\DynamicMailConfig;
+use Ikechukwukalu\Dynamicdatabaseconfig\DynamicDatabaseConfigServiceProvider;
+use Ikechukwukalu\Dynamicdatabaseconfig\Middleware\DynamicDatabaseConfig;
 
 class ServiceProviderTest extends TestCase
 {
@@ -11,8 +11,8 @@ class ServiceProviderTest extends TestCase
     {
         static::assertSame(
             $this->app->make('files')
-                ->getRequire(DynamicMailConfigServiceProvider::CONFIG),
-            $this->app->make('config')->get('dynamicmailconfig')
+                ->getRequire(DynamicDatabaseConfigServiceProvider::CONFIG),
+            $this->app->make('config')->get('dynamicdatabaseconfig')
         );
     }
 
@@ -20,8 +20,8 @@ class ServiceProviderTest extends TestCase
     {
         $middleware = $this->app->make('router')->getMiddleware();
 
-        static::assertSame(DynamicMailConfig::class, $middleware['dynamic.mail.config']);
-        static::assertArrayHasKey('dynamic.mail.config', $middleware);
+        static::assertSame(DynamicDatabaseConfig::class, $middleware['dynamic.database.config']);
+        static::assertArrayHasKey('dynamic.database.config', $middleware);
     }
 
 }

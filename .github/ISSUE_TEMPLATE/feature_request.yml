@@ -43,7 +43,7 @@ body:
       label: Code sample
       description: Sample a small snippet on how the feature works
       placeholder: |
-        DynamicMailConfig::newFeature()->requireSomethingElse();
+        DynamicDatabaseConfig::newFeature()->requireSomethingElse();
       render: php
     validations:
       required: true
