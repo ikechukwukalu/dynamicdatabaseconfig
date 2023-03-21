@@ -24,7 +24,7 @@ composer require ikechukwukalu/dynamicdatabaseconfig
 
 The need for this package came up when I once handled an already existing project that, due to certain constraints, had 9 databases implemented for each country were their application was being utilised. This application also had a central database that was used by every country as well.
 
-The `config/database` file wasn't pretty. I'd prefer to have all configurations within the `.env` file only. What if the databases required grew to 19? These were the problems, both pending and existing that needed a clean hack/solution.
+The `config/database` file wasn't pretty. I'd prefer to have all configurations within the `.env` file only. The Big question was, what if the databases required grew to 19? These were the problems, both pending and existing that needed a clean hack/solution.
 
 ### Middlewares
 
@@ -51,19 +51,23 @@ DB_PASSWORD_ONE=
 use Illuminate\Support\Facades\Route;
 
 /**
- * mysql is the type of relational database - $database
+ * mysql is the type of relational database connection being replicated - $database
  * mysql_1 is the new connection name - $name
  * ONE is the postfix - $postfix
  */
 
 Route::middleware(['env.database.config:mysql,mysql_1,ONE'])->group(function () {
-    Route::post('/', [\namespace\SomethingController::class, 'functionName']);
+    Route::post('/user', function () {
+        return \App\Models\User::on('mysql_1')->find(1);
+    });
 });
 
-Route::post('/', [\namespace\SomethingController::class, 'functionName'])->middleware('env.database.config:mysql,mysql_1,ONE');
+Route::post('/user', function () {
+        return \App\Models\User::on('mysql_1')->find(1);
+})->middleware('env.database.config:mysql,mysql_1,ONE');
 ```
 
-You would not need to add a postfix, `ONE`, parameter to the middleware for the `$postFix` variable if you simple set the following session value `session(config('dynamicdatabaseconfig.session_postfix'))`, but when a postfix parameter has been set, it will be used instead of the session value. This will also dynamically declare an additional database connection for your laravel application.
+You would not need to add a postfix, `ONE`, parameter to the middleware for the `$postFix` variable if you simply set the following session value `session(config('dynamicdatabaseconfig.session_postfix'))`, but when a postfix parameter has been set, it will be used instead of the session value. This will also dynamically declare an additional database connection for your laravel application.
 
 #### `Dynamic.database.config` Middleware
 
@@ -115,19 +119,23 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware(['dynamic.database.config:nigeria'])->group(function () {
-    Route::post('/', [\namespace\SomethingController::class, 'functionName']);
+    Route::post('/user', function () {
+        return \App\Models\User::on('mysql_nigeria')->find(1);
+    });
 });
 
-Route::post('/', [\namespace\SomethingController::class, 'functionName'])->middleware('dynamic.database.config:nigeria');
+Route::post('/user', function () {
+        return \App\Models\User::on('mysql_nigeria')->find(1);
+})->middleware('dynamic.database.config:nigeria');
 ```
 
-You would not need to add a ref, `nigeria`, parameter to the middleware for the `$ref` variable if you simple set the following session value `session(config('dynamicdatabaseconfig.session_ref'))`, but when a ref parameter has been set, it will be used instead of the session value.
+You would not need to add a ref, `nigeria`, parameter to the middleware for the `$ref` variable if you simply set the following session value `session(config('dynamicdatabaseconfig.session_ref'))`, but when a ref parameter has been set, it will be used instead of the session value.
 
-By default, the values stored within the `configuration` field will be hashed, you can adjust this from the `.env` file by setting `DB_CONFIGURATIONS_HASH=false`.
+By default, the values stored within the `configuration` field will be hashed, but you can adjust this from the `.env` file by setting `DB_CONFIGURATIONS_HASH=false`.
 
 ### Migration
 
-It's compulsory to first migrate laravel's the initial database.
+It's compulsory to first migrate laravel's initial database.
 
 - `php artisan migrate`
 
@@ -138,6 +146,8 @@ It's compulsory to first migrate laravel's the initial database.
 
 #### Default Migrations
 
+This will only migrate files within laravel's default migration path `database/migrations`
+
 ``` shell
 php artisan database:env-migrate mysql mysql_1 ONE
 
@@ -145,6 +155,8 @@ php artisan database:dynamic-migrate nigeria
 ```
 
 #### Isolated Migrations
+
+This will only migrate files within the specified migration path `database/migrations/folder`
 
 ``` shell
 php artisan database:env-migrate mysql mysql_1 ONE --path=database/migrations/folder
@@ -154,7 +166,7 @@ php artisan database:dynamic-migrate nigeria --path=database/migrations/folder
 
 #### Both Migrations
 
-Running the migrations as displayed below will result in the database having the migrations within `database/migrations` and `database/migrations/folder`.
+Running the migrations as displayed below will result in the respective database having the migrated data from migrations within `database/migrations` and `database/migrations/folder`.
 
 ``` shell
 php artisan database:env-migrate mysql mysql_1 ONE
@@ -169,7 +181,7 @@ php artisan database:dynamic-migrate nigeria --path=database/migrations/folder
 - A primary database is needed before any other database can be migrated.
 - A database will be created if it does not exist.
 - Each database will retain it's own independent `migration` table.
-- It's recommended that you do not publish the migration file that is shipped with this package, unless you want the `database_configurations` table to be migrated into every extra database created when running default migrations.
+- It's recommended that you do not publish the migration file that is shipped with this package, unless you want the `database_configurations` table to be migrated into every extra database created when running **Default migrations**.
 
 ## PUBLISH MIGRATIONS
 

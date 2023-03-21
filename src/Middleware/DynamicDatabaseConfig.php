@@ -12,6 +12,10 @@ class DynamicDatabaseConfig
 
     public function handle(Request $request, Closure $next, null|string $ref = null)
     {
+        if (!$ref) {
+            $ref = session(config('dynamicdatabaseconfig.session_ref', '_db_ref'));
+        }
+
         [$database, $configuration, $name] = $this->getDynamicDatabaseConfiguration($ref);
 
         if ($database) {

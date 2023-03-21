@@ -18,12 +18,8 @@ class DatabaseConfiguration extends Model
         'configuration'
     ];
 
-    public function scopeConfiguredDatabase($query, mixed $ref = null)
+    public function scopeConfiguredDatabase($query, mixed $ref)
     {
-        if (!$ref) {
-            $ref = session(config('dynamicdatabaseconfig.session_ref', '_db_ref'));
-        }
-
         return $query->where('ref', $ref);
     }
 
