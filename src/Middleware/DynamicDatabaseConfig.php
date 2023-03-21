@@ -10,7 +10,7 @@ class DynamicDatabaseConfig
 {
     use DatabaseConfig;
 
-    public function handle(Request $request, Closure $next, null|string $path = null, null|string $ref = null)
+    public function handle(Request $request, Closure $next, null|string $ref = null)
     {
         [$database, $configuration, $name] = $this->getDynamicDatabaseConfiguration($ref);
 

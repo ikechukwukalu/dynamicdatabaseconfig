@@ -103,10 +103,10 @@ trait DatabaseConfig
     /**
      * Get dynamic database configuration
      *
-     * @param string $ref
+     * @param null|string $ref
      * @return array
      */
-    public function getDynamicDatabaseConfiguration(string $ref): array
+    public function getDynamicDatabaseConfiguration(null|string $ref): array
     {
         $databaseConfig = DatabaseConfiguration::configuredDatabase($ref)
                             ->first();

@@ -1,4 +1,4 @@
-# DYNAMIC MAIL CONFIG
+# DYNAMIC DATABASE CONFIG
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://packagist.org/packages/ikechukwukalu/dynamicdatabaseconfig)
 [![Quality Score](https://img.shields.io/scrutinizer/quality/g/ikechukwukalu/dynamicdatabaseconfig/main?style=flat-square)](https://scrutinizer-ci.com/g/ikechukwukalu/dynamicdatabaseconfig/)
@@ -7,7 +7,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://packagist.org/packages/ikechukwukalu/dynamicdatabaseconfig)
 [![Licence](https://img.shields.io/packagist/l/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://github.com/ikechukwukalu/dynamicdatabaseconfig/blob/main/LICENSE.md)
 
-A laravel package that enables each user to send emails through your app using their own unique email configuration.
+This laravel package helps you dynamically set more database configurations through the `.env` file or `database`.
 
 ## REQUIREMENTS
 
@@ -20,48 +20,160 @@ A laravel package that enables each user to send emails through your app using t
 composer require ikechukwukalu/dynamicdatabaseconfig
 ```
 
-- `php artisan vendor:publish --tag=ddc-migrations`
-- `php artisan migrate`
+### Introduction
 
-### Hash Database Fields
+The need for this package came up when I once handled an already existing project that, due to certain constraints, had 9 databases implemented for each country were their application was being utilised. This application also had a central database that was used by every country as well.
+
+The `config/database` file wasn't pretty. I'd prefer to have all configurations within the `.env` file only. What if the databases required grew to 19? These were the problems, both pending and existing that needed a clean hack/solution.
+
+### Middlewares
+
+- `env.database.config`
+- `dynamic.database.config`
+
+#### `Env.database.config` Middleware
+
+This middleware fetches database configurations from the `.env` file using postfixes like `ONE`. This dynamically declares an additional database connection for your laravel application.
+
+- Sample env config
 
 ``` shell
-MAIL_FIELDS_HASH=true
+DB_HOST_ONE=127.0.0.1
+DB_PORT_ONE=3306
+DB_DATABASE_ONE=second_db
+DB_USERNAME_ONE=root
+DB_PASSWORD_ONE=
 ```
 
-### How To Use
+- Sample middleware implementation
 
 ``` php
 use Illuminate\Support\Facades\Route;
 
+/**
+ * mysql is the type of relational database - $database
+ * mysql_1 is the new connection name - $name
+ * ONE is the postfix - $postfix
+ */
 
-Route::middleware(['dynamic.database.config'])->group(function () {
+Route::middleware(['env.database.config:mysql,mysql_1,ONE'])->group(function () {
     Route::post('/', [\namespace\SomethingController::class, 'functionName']);
 });
 
-Route::post('/', [\namespace\SomethingController::class, 'functionName'])->middleware('dynamic.database.config');
+Route::post('/', [\namespace\SomethingController::class, 'functionName'])->middleware('env.database.config:mysql,mysql_1,ONE');
 ```
 
-### Model
+You would not need to add a postfix, `ONE`, parameter to the middleware for the `$postFix` variable if you simple set the following session value `session(config('dynamicdatabaseconfig.session_postfix'))`, but when a postfix parameter has been set, it will be used instead of the session value. This will also dynamically declare an additional database connection for your laravel application.
 
-```php
+#### `Dynamic.database.config` Middleware
+
+This middleware fetches database configurations from the `database_configurations` table within the primary migration database. It utilises a unique `$ref` variable. It's recommended that the unique `$ref` variable should be human readable so that it would be easy to run the console commands for migration shipped with this package.
+
+- Model file
+
+``` php
 use Ikechukwukalu\Dynamicdatabaseconfig\Models\DatabaseConfiguration;
 
 protected $hidden = [
-    'name',
-    'address',
-    'driver',
-    'host',
-    'port',
-    'encryption',
-    'username',
-    'password'
+        'ref',
+        'name',
+        'database',
+
+        /**
+         * Accepts only arrays
+         */
+        'configuration'
 ];
+```
+
+- Sample eloquent database insert
+
+```php
+$countries = ['nigeria', 'ghana', 'togo', 'kenya'];
+$config = \Config::get('database.connections.mysql');
+
+foreach ($countries as $country) {
+    $config['database'] = $country . '_db';
+    DatabaseConfiguration::firstOrCreate(
+    ['ref' => $country],
+    [
+        'ref' => $country,
+        'name' => 'mysql_' . $country,
+        'database' => 'mysql',
+        'configuration' => $config
+    ]);
+}
+```
+
+- Sample middleware implementation
+
+``` php
+use Illuminate\Support\Facades\Route;
+
+/**
+ * nigeria is $ref value
+ */
+
+Route::middleware(['dynamic.database.config:nigeria'])->group(function () {
+    Route::post('/', [\namespace\SomethingController::class, 'functionName']);
+});
+
+Route::post('/', [\namespace\SomethingController::class, 'functionName'])->middleware('dynamic.database.config:nigeria');
+```
+
+You would not need to add a ref, `nigeria`, parameter to the middleware for the `$ref` variable if you simple set the following session value `session(config('dynamicdatabaseconfig.session_ref'))`, but when a ref parameter has been set, it will be used instead of the session value.
+
+By default, the values stored within the `configuration` field will be hashed, you can adjust this from the `.env` file by setting `DB_CONFIGURATIONS_HASH=false`.
+
+### Migration
+
+It's compulsory to first migrate laravel's the initial database.
+
+- `php artisan migrate`
+
+### Other Migrations
+
+- Default migrations
+- Isolated migrations
+
+#### Default Migrations
+
+``` shell
+php artisan database:env-migrate mysql mysql_1 ONE
+
+php artisan database:dynamic-migrate nigeria
+```
+
+#### Isolated Migrations
+
+``` shell
+php artisan database:env-migrate mysql mysql_1 ONE --path=database/migrations/folder
+
+php artisan database:dynamic-migrate nigeria --path=database/migrations/folder
+```
+
+#### Both Migrations
+
+Running the migrations as displayed below will result in the database having the migrations within `database/migrations` and `database/migrations/folder`.
+
+``` shell
+php artisan database:env-migrate mysql mysql_1 ONE
+php artisan database:env-migrate mysql mysql_1 ONE --path=database/migrations/folder
+
+php artisan database:dynamic-migrate nigeria
+php artisan database:dynamic-migrate nigeria --path=database/migrations/folder
 ```
 
 ## NOTE
 
-The default mail configuration will be used if a user does not have a custom mail configuration in place.
+- A primary database is needed before any other database can be migrated.
+- A database will be created if it does not exist.
+- Each database will retain it's own independent `migration` table.
+- It's recommended that you do not publish the migration file that is shipped with this package, unless you want the `database_configurations` table to be migrated into every extra database created when running default migrations.
+
+## PUBLISH MIGRATIONS
+
+- `php artisan vendor:publish --tag=ddc-migrations`
 
 ## PUBLISH CONFIG
 

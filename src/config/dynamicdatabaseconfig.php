@@ -10,16 +10,10 @@ return [
      */
     'session_ref' => env('SESSION_REF_KEY', '_db_ref'),
     /**
-     * string - session key to set the $postFix and $path for env database config
+     * string - session key to set the $postFix for env database config
+     * The $postFix value can be assigned to the session
      */
-    'session_variable' => '_db_session',
-    /**
-     * string - value for session_variable
-     *
-     * index 0 must be set for the $postFix middleware variable
-     * index 1 must be set for the $path middleware variable
-     */
-    'session_value' => ['ONE', 'database/migrations'],
+    'session_postfix' => '_db_session',
     /**
      * string - migration directory
      */

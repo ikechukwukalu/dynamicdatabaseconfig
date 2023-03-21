@@ -10,10 +10,10 @@ class EnvDatabaseConfig
 {
     use DatabaseConfig;
 
-    public function handle(Request $request, Closure $next, string $database, string $name, null|string $postFix = null, null|string $path = null)
+    public function handle(Request $request, Closure $next, string $database, string $name, null|string $postFix = null)
     {
         if (!$postFix) {
-            [$postFix, $path] = session(config('dynamicdatabaseconfig.session_variable'));
+            $postFix = session(config('dynamicdatabaseconfig.session_postfix'));
         }
 
         $newConfig = $this->setNewEnvConfig($database, $postFix);
