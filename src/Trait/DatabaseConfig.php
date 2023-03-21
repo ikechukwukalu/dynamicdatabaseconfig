@@ -29,13 +29,32 @@ trait DatabaseConfig
     /**
      * Create database
      *
-     * @param string $name
+     * @param string $database
      * @param string $schemaName
      * @return void
      */
-    public function createDatabase(string $name, string $schemaName): void
+    public function createDatabase(string $database, string $schemaName): void
     {
-        DB::connection($name)->statement("CREATE DATABASE IF NOT EXISTS {$schemaName};");
+        if ($database === 'pgsql') {
+            DB::connection($database)->statement("SELECT 'CREATE DATABASE {$schemaName}'
+            WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '{$schemaName}')\gexec");
+            return;
+        }
+
+        if ($database === 'sqlsrv') {
+            DB::connection($database)->statement("IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = '{$schemaName}')
+            BEGIN
+              CREATE DATABASE {$schemaName};
+            END;
+            GO");
+            return;
+        }
+
+        /**
+         * $database === 'mysql'
+         */
+        DB::connection($database)->statement("CREATE DATABASE IF NOT EXISTS {$schemaName};");
+        return;
     }
 
     /**

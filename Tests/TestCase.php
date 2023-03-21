@@ -31,5 +31,13 @@ abstract class TestCase extends BaseTestCase
                         'driver' => 'session',
                         'provider' => 'users',
                     ]);
+
+        // Setup default database to use sqlite :memory:
+        $app['config']->set('database.default', 'test_bench');
+        $app['config']->set('database.connections.test_bench', [
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+            'prefix'   => '',
+        ]);
     }
 }

@@ -15,8 +15,16 @@
     </testsuite>
   </testsuites>
   <php>
+    <env name="DB_CONNECTION" value="test_bench"/>
     <env name="APP_ENV" value="package_testing"/>
-    <env name="DB_CONNECTION" value="testing"/>
     <env name="APP_KEY" value="base64:seltugWs5DeIxCXj0fRuDShmHWII/edvp3afU2gkupE="/>
+    <env name="DB_DATABASE" value="test_db"/>
+    <env name="DB_USERNAME" value="root"/>
+    <env name="DB_PASSWORD" value=""/>
+    <env name="DB_HOST_TWO" value="127.0.0.1"/>
+    <env name="DB_PORT_TWO" value="3306"/>
+    <env name="DB_DATABASE_TWO" value="two_db"/>
+    <env name="DB_USERNAME_TWO" value="root"/>
+    <env name="DB_PASSWORD_TWO" value=""/>
   </php>
 </phpunit>
