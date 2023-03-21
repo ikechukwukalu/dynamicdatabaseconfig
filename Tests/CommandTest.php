@@ -17,7 +17,7 @@ class CommandTest extends TestCase
 
         $this->seed(DatabaseConfigurationSeeder::class);
 
-        $this->artisan('database:dynamic-migrate one --path=database/migrations')->assertSuccessful();
+        $this->artisan('dynamic:migrate one --path=database/migrations')->assertSuccessful();
 
         $this->artisan('vendor:publish --tag=ddc-config')->assertSuccessful();
 

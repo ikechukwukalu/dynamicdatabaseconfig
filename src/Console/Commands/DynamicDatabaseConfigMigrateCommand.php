@@ -15,7 +15,7 @@ class DynamicDatabaseConfigMigrateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'database:dynamic-migrate
+    protected $signature = 'dynamic:migrate
                             {ref : The ref for the database configuration}
                             {--P|--path= : The path where the database migration files are stored}';
 

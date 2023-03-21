@@ -14,7 +14,7 @@ class EnvDatabaseConfigMigrateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'database:env-migrate
+    protected $signature = 'env:migrate
                             {database : The type of database}
                             {name : The name of the new database connection}
                             {postfix : The postfix for the database configuration}

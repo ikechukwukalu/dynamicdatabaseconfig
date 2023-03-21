@@ -67,11 +67,11 @@ Route::post('/user', function () {
 })->middleware('env.database.config:mysql,mysql_1,ONE');
 ```
 
-You would not need to add a postfix, `ONE`, parameter to the middleware for the `$postFix` variable if you simply set the following session value `session(config('dynamicdatabaseconfig.session_postfix'))`, but when a postfix parameter has been set, it will be used instead of the session value. This will also dynamically declare an additional database connection for your laravel application.
+You would not need to add a postfix, `ONE`, parameter to the middleware for the `$postFix` variable if you simply set the following session value `session(config('dynamicdatabaseconfig.session_postfix'))`, but when a postfix parameter has been set, it will be used instead of the session value.
 
 #### `Dynamic.database.config` Middleware
 
-This middleware fetches database configurations from the `database_configurations` table within the primary migration database. It utilises a unique `$ref` variable. It's recommended that the unique `$ref` variable should be human readable so that it would be easy to run the package's console commands for running migrations.
+This middleware fetches database configurations from the `database_configurations` table within the primary migration database. It utilises a unique `$ref` variable. It's recommended that the unique `$ref` variable should be human readable, that way it becomes easier to run the package's console commands for running migrations. This will also dynamically declare an additional database connection for your laravel application.
 
 - Model file
 
@@ -149,9 +149,9 @@ It's compulsory to first migrate laravel's initial database.
 This will only migrate files within laravel's default migration path `database/migrations`
 
 ``` shell
-php artisan database:env-migrate mysql mysql_1 ONE
+php artisan env:migrate mysql mysql_1 ONE
 
-php artisan database:dynamic-migrate nigeria
+php artisan dynamic:migrate nigeria
 ```
 
 #### Isolated Migrations
@@ -159,9 +159,9 @@ php artisan database:dynamic-migrate nigeria
 This will only migrate files within the specified migration path `database/migrations/folder`
 
 ``` shell
-php artisan database:env-migrate mysql mysql_1 ONE --path=database/migrations/folder
+php artisan env:migrate mysql mysql_1 ONE --path=database/migrations/folder
 
-php artisan database:dynamic-migrate nigeria --path=database/migrations/folder
+php artisan dynamic:migrate nigeria --path=database/migrations/folder
 ```
 
 #### Both Migrations
@@ -169,11 +169,11 @@ php artisan database:dynamic-migrate nigeria --path=database/migrations/folder
 Running the migrations as displayed below will result in the respective database having the migrated data from migrations within `database/migrations` and `database/migrations/folder`.
 
 ``` shell
-php artisan database:env-migrate mysql mysql_1 ONE
-php artisan database:env-migrate mysql mysql_1 ONE --path=database/migrations/folder
+php artisan env:migrate mysql mysql_1 ONE
+php artisan env:migrate mysql mysql_1 ONE --path=database/migrations/folder
 
-php artisan database:dynamic-migrate nigeria
-php artisan database:dynamic-migrate nigeria --path=database/migrations/folder
+php artisan dynamic:migrate nigeria
+php artisan dynamic:migrate nigeria --path=database/migrations/folder
 ```
 
 ## NOTE
