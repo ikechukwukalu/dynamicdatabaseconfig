@@ -1,11 +1,11 @@
 # DYNAMIC DATABASE CONFIG
 
-<!-- [![Latest Version on Packagist](https://img.shields.io/packagist/v/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://packagist.org/packages/ikechukwukalu/dynamicdatabaseconfig)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://packagist.org/packages/ikechukwukalu/dynamicdatabaseconfig)
 [![Quality Score](https://img.shields.io/scrutinizer/quality/g/ikechukwukalu/dynamicdatabaseconfig/main?style=flat-square)](https://scrutinizer-ci.com/g/ikechukwukalu/dynamicdatabaseconfig/)
 [![Code Quality](https://img.shields.io/codefactor/grade/github/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://www.codefactor.io/repository/github/ikechukwukalu/dynamicdatabaseconfig)
 [![Github Workflow Status](https://img.shields.io/github/actions/workflow/status/ikechukwukalu/dynamicdatabaseconfig/dynamicdatabaseconfig.yml?branch=main&style=flat-square)](https://github.com/ikechukwukalu/dynamicdatabaseconfig/actions/workflows/dynamicdatabaseconfig.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://packagist.org/packages/ikechukwukalu/dynamicdatabaseconfig)
-[![Licence](https://img.shields.io/packagist/l/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://github.com/ikechukwukalu/dynamicdatabaseconfig/blob/main/LICENSE.md) -->
+[![Licence](https://img.shields.io/packagist/l/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://github.com/ikechukwukalu/dynamicdatabaseconfig/blob/main/LICENSE.md)
 
 This laravel package helps you dynamically set more database configurations through the `.env` file or `database`.
 
