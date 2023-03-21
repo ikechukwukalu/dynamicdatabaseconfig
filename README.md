@@ -71,7 +71,7 @@ You would not need to add a postfix, `ONE`, parameter to the middleware for the 
 
 #### `Dynamic.database.config` Middleware
 
-This middleware fetches database configurations from the `database_configurations` table within the primary migration database. It utilises a unique `$ref` variable. It's recommended that the unique `$ref` variable should be human readable so that it would be easy to run the console commands for migration shipped with this package.
+This middleware fetches database configurations from the `database_configurations` table within the primary migration database. It utilises a unique `$ref` variable. It's recommended that the unique `$ref` variable should be human readable so that it would be easy to run the package's console commands for running migrations.
 
 - Model file
 
@@ -181,7 +181,7 @@ php artisan database:dynamic-migrate nigeria --path=database/migrations/folder
 - A primary database is needed before any other database can be migrated.
 - A database will be created if it does not exist.
 - Each database will retain it's own independent `migration` table.
-- It's recommended that you do not publish the migration file that is shipped with this package, unless you want the `database_configurations` table to be migrated into every extra database created when running **Default migrations**.
+- It's recommended that you do not publish the package's migration file, unless you want the `database_configurations` table to be migrated into every extra database created when running **Default migrations**.
 
 ## PUBLISH MIGRATIONS
 
