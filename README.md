@@ -180,8 +180,10 @@ php artisan dynamic:migrate nigeria --path=database/migrations/folder
 
 ``` shell
 php artisan env:migrate mysql mysql_1 ONE --seeder=DatabaseSeederOne
+php artisan env:migrate mysql mysql_1 ONE --seeder=DatabaseSeederOne  --path=database/migrations/folder
 
 php artisan dynamic:migrate nigeria --seeder=DatabaseSeederNigeria
+php artisan dynamic:migrate nigeria --seeder=DatabaseSeederNigeria  --path=database/migrations/folder
 ```
 
 ### Refreshing Migrations
