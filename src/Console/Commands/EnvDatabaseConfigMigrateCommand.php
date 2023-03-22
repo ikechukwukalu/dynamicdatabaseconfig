@@ -19,7 +19,9 @@ class EnvDatabaseConfigMigrateCommand extends Command
                             {name : The name of the new database connection}
                             {postfix : The postfix for the database configuration}
                             {--P|--path= : The path where the database migration files are kept}
-                            {--seeder= : Running a single seeder class}';
+                            {--seeder= : Running a single seeder class}
+                            {--refresh : Refreshing all migration}
+                            {--rollback : Reverting migrations}';
 
     /**
      * The console command description.
@@ -47,7 +49,17 @@ class EnvDatabaseConfigMigrateCommand extends Command
         $newConfig = $this->setNewEnvConfig($database, $postFix);
         $this->addNewConfig($database, $name, $newConfig);
         $this->createDatabase($database, $newConfig['database']);
-        $this->call('migrate', ['--database' => $name, '--path' => $path]);
+
+        if ($this->option('refresh')) {
+            $this->call('migrate:refresh', ['--database' => $name, '--path' => $path]);
+        } else {
+            $this->call('migrate', ['--database' => $name, '--path' => $path]);
+        }
+
+        if ($this->option('rollback')) {
+            $this->call('migrate:rollback', ['--database' => $name, '--path' => $path]);
+            return;
+        }
 
         if ($seeder = $this->option('seeder')) {
             $this->call('db:seed', ['--class' => $seeder]);

@@ -184,6 +184,30 @@ php artisan env:migrate mysql mysql_1 ONE --seeder=DatabaseSeederOne
 php artisan env:migrate nigeria --seeder=DatabaseSeederNigeria
 ```
 
+### Refreshing Migrations
+
+``` shell
+php artisan env:migrate mysql mysql_1 ONE --refresh
+php artisan env:migrate mysql mysql_1 ONE --refresh --seeder=DatabaseSeederOne
+php artisan env:migrate mysql mysql_1 ONE --path=database/migrations/folder --refresh
+php artisan env:migrate mysql mysql_1 ONE --path=database/migrations/folder --refresh --seeder=DatabaseSeederOne
+
+php artisan env:migrate nigeria --refresh
+php artisan env:migrate nigeria --refresh --seeder=DatabaseSeederNigeria
+php artisan env:migrate nigeria --path=database/migrations/folder --refresh
+php artisan env:migrate nigeria --path=database/migrations/folder --refresh --seeder=DatabaseSeederNigeria
+```
+
+### Rolling Back Migrations
+
+``` shell
+php artisan env:migrate mysql mysql_1 ONE --rollback
+php artisan env:migrate mysql mysql_1 ONE --path=database/migrations/folder --rollback
+
+php artisan env:migrate nigeria --rollback
+php artisan env:migrate nigeria --path=database/migrations/folder --rollback
+```
+
 ## NOTE
 
 - A primary database is needed before any other database can be migrated.

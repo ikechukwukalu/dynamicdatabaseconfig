@@ -18,7 +18,9 @@ class DynamicDatabaseConfigMigrateCommand extends Command
     protected $signature = 'dynamic:migrate
                             {ref : The ref for the database configuration}
                             {--P|--path= : The path where the database migration files are stored}
-                            {--seeder= : Running a single seeder class}';
+                            {--seeder= : Running a single seeder class}
+                            {--refresh : Refreshing all migration}
+                            {--rollback : Reverting migrations}';
 
     /**
      * The console command description.
@@ -41,21 +43,30 @@ class DynamicDatabaseConfigMigrateCommand extends Command
 
         [$database, $configuration, $name] = $this->getDynamicDatabaseConfiguration($ref);
 
-        if ($database) {
-            $this->components->info("Running migrations for {$name} and path={$path} with ref={$ref}");
-
-            $newConfig = $this->setNewDynamicConfig($database, $configuration);
-            $this->addNewConfig($database, $name, $newConfig);
-            $this->createDatabase($database, $configuration['database']);
-            $this->call('migrate', ['--database' => $name, '--path' => $path]);
-
-            if ($seeder = $this->option('seeder')) {
-                $this->call('db:seed', ['--class' => $seeder]);
-            }
-
+        if (!$database) {
+            $this->components->error("No database configuration was found");
             return;
         }
 
-        $this->components->error("Could not run migrations");
+        $this->components->info("Running migrations for {$name} and path={$path} with ref={$ref}");
+
+        $newConfig = $this->setNewDynamicConfig($database, $configuration);
+        $this->addNewConfig($database, $name, $newConfig);
+        $this->createDatabase($database, $configuration['database']);
+
+        if ($this->option('refresh')) {
+            $this->call('migrate:refresh', ['--database' => $name, '--path' => $path]);
+        } else {
+            $this->call('migrate', ['--database' => $name, '--path' => $path]);
+        }
+
+        if ($this->option('rollback')) {
+            $this->call('migrate:rollback', ['--database' => $name, '--path' => $path]);
+            return;
+        }
+
+        if ($seeder = $this->option('seeder')) {
+            $this->call('db:seed', ['--class' => $seeder]);
+        }
     }
 }
