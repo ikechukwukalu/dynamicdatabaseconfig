@@ -18,7 +18,8 @@ class EnvDatabaseConfigMigrateCommand extends Command
                             {database : The type of database}
                             {name : The name of the new database connection}
                             {postfix : The postfix for the database configuration}
-                            {--P|--path= : The path where the database migration files are kept}';
+                            {--P|--path= : The path where the database migration files are kept}
+                            {--seeder= : Running a single seeder class}';
 
     /**
      * The console command description.
@@ -47,5 +48,9 @@ class EnvDatabaseConfigMigrateCommand extends Command
         $this->addNewConfig($database, $name, $newConfig);
         $this->createDatabase($database, $newConfig['database']);
         $this->call('migrate', ['--database' => $name, '--path' => $path]);
+
+        if ($seeder = $this->option('seeder')) {
+            $this->call('db:seed', ['--class' => $seeder]);
+        }
     }
 }

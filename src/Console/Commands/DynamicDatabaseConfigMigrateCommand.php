@@ -17,7 +17,8 @@ class DynamicDatabaseConfigMigrateCommand extends Command
      */
     protected $signature = 'dynamic:migrate
                             {ref : The ref for the database configuration}
-                            {--P|--path= : The path where the database migration files are stored}';
+                            {--P|--path= : The path where the database migration files are stored}
+                            {--seeder= : Running a single seeder class}';
 
     /**
      * The console command description.
@@ -47,6 +48,10 @@ class DynamicDatabaseConfigMigrateCommand extends Command
             $this->addNewConfig($database, $name, $newConfig);
             $this->createDatabase($database, $configuration['database']);
             $this->call('migrate', ['--database' => $name, '--path' => $path]);
+
+            if ($seeder = $this->option('seeder')) {
+                $this->call('db:seed', ['--class' => $seeder]);
+            }
 
             return;
         }

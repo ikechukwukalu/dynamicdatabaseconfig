@@ -22,7 +22,7 @@ composer require ikechukwukalu/dynamicdatabaseconfig
 
 ### Introduction
 
-The need for this package came up when I once handled an already existing project that, due to certain constraints, had 9 databases implemented for each country were their application was being utilised. This application also had a central database that was used by every country as well.
+The need for this package came up when I once handled an already existing project that, due to certain constraints, had 9 databases implemented for each country their application was being utilised. This application also had a central database that was used by every country as well.
 
 The `config/database` file wasn't pretty. I'd prefer to have all configurations within the `.env` file only. The Big question was, what if the databases required grew to 19? These were the problems, both pending and existing that needed a clean hack/solution.
 
@@ -174,6 +174,14 @@ php artisan env:migrate mysql mysql_1 ONE --path=database/migrations/folder
 
 php artisan dynamic:migrate nigeria
 php artisan dynamic:migrate nigeria --path=database/migrations/folder
+```
+
+### Database Seeding
+
+``` shell
+php artisan env:migrate mysql mysql_1 ONE --seeder=DatabaseSeederOne
+
+php artisan env:migrate nigeria --seeder=DatabaseSeederNigeria
 ```
 
 ## NOTE
