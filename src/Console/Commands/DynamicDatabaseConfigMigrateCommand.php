@@ -53,7 +53,11 @@ class DynamicDatabaseConfigMigrateCommand extends Command
         $newConfig = $this->setNewDynamicConfig($database, $configuration);
         $this->addNewConfig($database, $name, $newConfig);
         $this->createDatabase($database, $configuration['database']);
+        $this->execMigrationCommands($name, $path);
+    }
 
+    private function execMigrationCommands(string $name, null|string $path = '')
+    {
         if ($this->option('refresh')) {
             $this->call('migrate:refresh', ['--database' => $name, '--path' => $path]);
         } else {

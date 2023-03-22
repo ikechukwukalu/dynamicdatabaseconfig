@@ -49,7 +49,11 @@ class EnvDatabaseConfigMigrateCommand extends Command
         $newConfig = $this->setNewEnvConfig($database, $postFix);
         $this->addNewConfig($database, $name, $newConfig);
         $this->createDatabase($database, $newConfig['database']);
+        $this->execMigrationCommands($name, $path);
+    }
 
+    private function execMigrationCommands(string $name, null|string $path = '')
+    {
         if ($this->option('refresh')) {
             $this->call('migrate:refresh', ['--database' => $name, '--path' => $path]);
         } else {
