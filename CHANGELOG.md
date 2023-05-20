@@ -1,5 +1,10 @@
+# v1.0.2
 
-# v1.0.1
+Additional Features:
+
+- Added `$request->_db_connection` to hold the name of the connection
+
+## v1.0.1
 
 Additional Features:
 

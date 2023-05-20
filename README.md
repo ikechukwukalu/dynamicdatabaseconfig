@@ -59,11 +59,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['env.database.config:mysql,mysql_1,ONE'])->group(function () {
     Route::post('/user', function () {
+        /**
+         * $request->_db_connection === 'mysql_1'
+         */
         return \App\Models\User::on('mysql_1')->find(1);
     });
 });
 
 Route::post('/user', function () {
+        /**
+         * $request->_db_connection === 'mysql_1'
+         */
         return \App\Models\User::on('mysql_1')->find(1);
 })->middleware('env.database.config:mysql,mysql_1,ONE');
 ```
@@ -121,11 +127,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['dynamic.database.config:nigeria'])->group(function () {
     Route::post('/user', function () {
+        /**
+         * $request->_db_connection === 'mysql_nigeria'
+         */
         return \App\Models\User::on('mysql_nigeria')->find(1);
     });
 });
 
 Route::post('/user', function () {
+        /**
+         * $request->_db_connection === 'mysql_nigeria'
+         */
         return \App\Models\User::on('mysql_nigeria')->find(1);
 })->middleware('dynamic.database.config:nigeria');
 ```
