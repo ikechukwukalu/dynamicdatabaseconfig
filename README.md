@@ -49,6 +49,7 @@ DB_PASSWORD_ONE=
 - Sample middleware implementation
 
 ``` php
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -58,7 +59,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware(['env.database.config:mysql,mysql_1,ONE'])->group(function () {
-    Route::post('/user', function () {
+    Route::post('/user', function (Request $request) {
         /**
          * $request->_db_connection === 'mysql_1'
          */
@@ -66,7 +67,7 @@ Route::middleware(['env.database.config:mysql,mysql_1,ONE'])->group(function () 
     });
 });
 
-Route::post('/user', function () {
+Route::post('/user', function (Request $request) {
         /**
          * $request->_db_connection === 'mysql_1'
          */
@@ -119,6 +120,7 @@ foreach ($countries as $country) {
 - Sample middleware implementation
 
 ``` php
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -126,7 +128,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware(['dynamic.database.config:nigeria'])->group(function () {
-    Route::post('/user', function () {
+    Route::post('/user', function (Request $request) {
         /**
          * $request->_db_connection === 'mysql_nigeria'
          */
@@ -134,7 +136,7 @@ Route::middleware(['dynamic.database.config:nigeria'])->group(function () {
     });
 });
 
-Route::post('/user', function () {
+Route::post('/user', function (Request $request) {
         /**
          * $request->_db_connection === 'mysql_nigeria'
          */
