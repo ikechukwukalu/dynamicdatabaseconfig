@@ -18,7 +18,7 @@ class DynamicDatabaseConfig
 
         [$database, $configuration, $name] = $this->getDynamicDatabaseConfiguration($ref);
 
-        $request->merge([config('dynamicdatabaseconfig.connection_name') => $name]);
+        $request->merge([config('dynamicdatabaseconfig.connection_name', '_db_connection') => $name]);
 
         if ($database) {
             $newConfig = $this->setNewDynamicConfig($database, $configuration);
