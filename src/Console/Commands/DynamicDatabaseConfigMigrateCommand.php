@@ -2,7 +2,6 @@
 
 namespace Ikechukwukalu\Dynamicdatabaseconfig\Console\Commands;
 
-use Ikechukwukalu\Dynamicdatabaseconfig\Models\DatabaseConfiguration;
 use Ikechukwukalu\Dynamicdatabaseconfig\Trait\DatabaseConfig;
 use Illuminate\Console\Command;
 
@@ -18,9 +17,11 @@ class DynamicDatabaseConfigMigrateCommand extends Command
     protected $signature = 'dynamic:migrate
                             {ref : The ref for the database configuration}
                             {--P|--path= : The path where the database migration files are stored}
+                            {--seed : Running seeders}
                             {--seeder= : Running a single seeder class}
                             {--refresh : Refreshing all migration}
-                            {--rollback : Reverting migrations}';
+                            {--rollback : Reverting migrations}
+                            {--fresh : Re-run all migrations afresh}';
 
     /**
      * The console command description.
@@ -58,14 +59,21 @@ class DynamicDatabaseConfigMigrateCommand extends Command
 
     private function execMigrationCommands(string $name, null|string $path = '')
     {
+        if ($this->option('rollback')) {
+            $this->call('migrate:rollback', ['--database' => $name, '--path' => $path]);
+            return;
+        }
+
         if ($this->option('refresh')) {
             $this->call('migrate:refresh', ['--database' => $name, '--path' => $path]);
+        } elseif ($this->option('fresh')) {
+            $this->call('migrate:fresh', ['--database' => $name, '--path' => $path]);
         } else {
             $this->call('migrate', ['--database' => $name, '--path' => $path]);
         }
 
-        if ($this->option('rollback')) {
-            $this->call('migrate:rollback', ['--database' => $name, '--path' => $path]);
+        if ($this->option('seed')) {
+            $this->call('db:seed');
             return;
         }
 

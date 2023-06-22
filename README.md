@@ -194,22 +194,42 @@ php artisan dynamic:migrate nigeria --path=database/migrations/folder
 ### Database Seeding
 
 ``` shell
+php artisan env:migrate mysql mysql_1 ONE --seed
 php artisan env:migrate mysql mysql_1 ONE --seeder=DatabaseSeederOne
 php artisan env:migrate mysql mysql_1 ONE --seeder=DatabaseSeederOne  --path=database/migrations/folder
 
+php artisan dynamic:migrate nigeria --seed
 php artisan dynamic:migrate nigeria --seeder=DatabaseSeederNigeria
 php artisan dynamic:migrate nigeria --seeder=DatabaseSeederNigeria  --path=database/migrations/folder
+```
+
+### Re-runing Migrations Afresh
+
+``` shell
+php artisan env:migrate mysql mysql_1 ONE --fresh
+php artisan env:migrate mysql mysql_1 ONE --fresh --seed
+php artisan env:migrate mysql mysql_1 ONE --fresh --seeder=DatabaseSeederOne
+php artisan env:migrate mysql mysql_1 ONE --path=database/migrations/folder --fresh
+php artisan env:migrate mysql mysql_1 ONE --path=database/migrations/folder --fresh --seeder=DatabaseSeederOne
+
+php artisan dynamic:migrate nigeria --fresh
+php artisan dynamic:migrate nigeria --fresh --seed
+php artisan dynamic:migrate nigeria --fresh --seeder=DatabaseSeederNigeria
+php artisan dynamic:migrate nigeria --path=database/migrations/folder --fresh
+php artisan dynamic:migrate nigeria --path=database/migrations/folder --fresh --seeder=DatabaseSeederNigeria
 ```
 
 ### Refreshing Migrations
 
 ``` shell
 php artisan env:migrate mysql mysql_1 ONE --refresh
+php artisan env:migrate mysql mysql_1 ONE --refresh --seed
 php artisan env:migrate mysql mysql_1 ONE --refresh --seeder=DatabaseSeederOne
 php artisan env:migrate mysql mysql_1 ONE --path=database/migrations/folder --refresh
 php artisan env:migrate mysql mysql_1 ONE --path=database/migrations/folder --refresh --seeder=DatabaseSeederOne
 
 php artisan dynamic:migrate nigeria --refresh
+php artisan dynamic:migrate nigeria --refresh --seed
 php artisan dynamic:migrate nigeria --refresh --seeder=DatabaseSeederNigeria
 php artisan dynamic:migrate nigeria --path=database/migrations/folder --refresh
 php artisan dynamic:migrate nigeria --path=database/migrations/folder --refresh --seeder=DatabaseSeederNigeria

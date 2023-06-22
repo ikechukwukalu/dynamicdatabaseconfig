@@ -17,5 +17,9 @@ return [
     /**
      * string - migration directory
      */
-    'default_path' => 'database/migrations'
+    'default_path' => 'database/migrations',
+    /**
+     * string - the request connection name
+     */
+    'connection_name' => '_db_connection'
 ];

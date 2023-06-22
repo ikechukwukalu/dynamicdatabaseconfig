@@ -12,7 +12,7 @@ class EnvDatabaseConfig
 
     public function handle(Request $request, Closure $next, string $database, string $name, null|string $postFix = null)
     {
-        $request->merge(['_db_connection' => $name]);
+        $request->merge([config('dynamicdatabaseconfig.connection_name') => $name]);
 
         if (!$postFix) {
             $postFix = session(config('dynamicdatabaseconfig.session_postfix'));

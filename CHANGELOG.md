@@ -1,4 +1,11 @@
-# v1.0.2
+# v1.0.3
+
+Additional Features:
+
+- Added `--seed` option to package migration commands
+- Added `--fresh` option to package migration commands
+
+## v1.0.2
 
 Additional Features:
 
