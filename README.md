@@ -3,8 +3,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://packagist.org/packages/ikechukwukalu/dynamicdatabaseconfig)
 [![Quality Score](https://img.shields.io/scrutinizer/quality/g/ikechukwukalu/dynamicdatabaseconfig/main?style=flat-square)](https://scrutinizer-ci.com/g/ikechukwukalu/dynamicdatabaseconfig/)
 [![Code Quality](https://img.shields.io/codefactor/grade/github/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://www.codefactor.io/repository/github/ikechukwukalu/dynamicdatabaseconfig)
-<!-- [![Vulnerability](https://img.shields.io/snyk/vulnerabilities/github/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://security.snyk.io/package/composer/ikechukwukalu%2Fdynamicdatabaseconfig) -->
-[![Known Vulnerabilities](https://snyk.io/test/github/ikechukwukalu/dynamicdatabaseconfig/badge.svg)](https://snyk.io/test/github/ikechukwukalu/dynamicdatabaseconfig)
+[![Known Vulnerabilities](https://snyk.io/test/github/ikechukwukalu/dynamicdatabaseconfig/badge.svg)](https://security.snyk.io/package/composer/ikechukwukalu%2Fdynamicdatabaseconfig)
 [![Github Workflow Status](https://img.shields.io/github/actions/workflow/status/ikechukwukalu/dynamicdatabaseconfig/dynamicdatabaseconfig.yml?branch=main&style=flat-square)](https://github.com/ikechukwukalu/dynamicdatabaseconfig/actions/workflows/dynamicdatabaseconfig.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://packagist.org/packages/ikechukwukalu/dynamicdatabaseconfig)
 [![Licence](https://img.shields.io/packagist/l/ikechukwukalu/dynamicdatabaseconfig?style=flat-square)](https://github.com/ikechukwukalu/dynamicdatabaseconfig/blob/main/LICENSE.md)
