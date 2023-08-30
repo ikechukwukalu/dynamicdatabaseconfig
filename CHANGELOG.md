@@ -1,4 +1,8 @@
-# v1.0.3
+# v1.0.4
+
+- Updated packages list in `composer.json`.
+
+## v1.0.3
 
 Additional Features:
 
