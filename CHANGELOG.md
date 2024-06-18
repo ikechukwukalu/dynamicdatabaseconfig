@@ -1,4 +1,8 @@
-# v1.0.4
+# v2.0.0
+
+- Updated package to support Laravel 11
+
+## v1.0.4
 
 - Updated packages list in `composer.json`.
 
