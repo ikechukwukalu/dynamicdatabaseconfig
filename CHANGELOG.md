@@ -1,4 +1,8 @@
-# v2.0.0
+# v2.0.1
+
+- Added stand alone seeder commands without migration
+
+## v2.0.0
 
 - Updated package to support Laravel 11
 
