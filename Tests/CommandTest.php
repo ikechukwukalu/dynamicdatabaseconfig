@@ -25,6 +25,8 @@ class CommandTest extends TestCase
 
         $this->artisan('dynamic:migrate one --fresh --path=database/migrations')->assertSuccessful();
 
+        $this->artisan('dynamic:seed one --seed')->assertSuccessful();
+
         $this->artisan('vendor:publish --tag=ddc-config')->assertSuccessful();
 
         $this->artisan('vendor:publish --tag=ddc-migrations')->assertSuccessful();

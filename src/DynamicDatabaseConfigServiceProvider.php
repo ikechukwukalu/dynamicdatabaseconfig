@@ -5,6 +5,8 @@ namespace Ikechukwukalu\Dynamicdatabaseconfig;
 
 use Ikechukwukalu\Dynamicdatabaseconfig\Console\Commands\DynamicDatabaseConfigMigrateCommand;
 use Ikechukwukalu\Dynamicdatabaseconfig\Console\Commands\EnvDatabaseConfigMigrateCommand;
+use Ikechukwukalu\Dynamicdatabaseconfig\Console\Commands\DynamicDatabaseConfigSeedCommand;
+use Ikechukwukalu\Dynamicdatabaseconfig\Console\Commands\EnvDatabaseConfigSeedCommand;
 use Ikechukwukalu\Dynamicdatabaseconfig\Middleware\DynamicDatabaseConfig;
 use Ikechukwukalu\Dynamicdatabaseconfig\Middleware\EnvDatabaseConfig;
 use Illuminate\Support\ServiceProvider;
@@ -25,7 +27,9 @@ class DynamicDatabaseConfigServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 DynamicDatabaseConfigMigrateCommand::class,
-                EnvDatabaseConfigMigrateCommand::class
+                EnvDatabaseConfigMigrateCommand::class,
+                DynamicDatabaseConfigSeedCommand::class,
+                EnvDatabaseConfigSeedCommand::class
             ]);
         }
 

@@ -191,7 +191,7 @@ php artisan dynamic:migrate nigeria
 php artisan dynamic:migrate nigeria --path=database/migrations/folder
 ```
 
-### Database Seeding
+### Database Migration With Seeding
 
 ``` shell
 php artisan env:migrate mysql mysql_1 ONE --seed
@@ -243,6 +243,16 @@ php artisan env:migrate mysql mysql_1 ONE --path=database/migrations/folder --ro
 
 php artisan dynamic:migrate nigeria --rollback
 php artisan dynamic:migrate nigeria --path=database/migrations/folder --rollback
+```
+
+### Database Seeding
+
+``` shell
+php artisan env:seed mysql mysql_1 ONE --seed
+php artisan env:seed mysql mysql_1 ONE --seeder=DatabaseSeederOne
+
+php artisan dynamic:seed nigeria --seed
+php artisan dynamic:seed nigeria --seeder=DatabaseSeederNigeria
 ```
 
 ## NOTE
