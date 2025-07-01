@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/ikechukwukalu/dynamicdatabaseconfig#readme",
   "dependencies": {
-    "snyk-php-plugin": "^1.9.4"
+    "snyk-php-plugin": "^1.10.0"
   }
 }
